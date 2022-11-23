@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Corookie's Blog | Corookie's Blog</title><meta name="author" content="Corookie"><meta name="copyright" content="Corookie"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前端笔记总结JS方面1. this 的指向 this默认值为window  12345let name &#x3D; &amp;#x27;yu&amp;#x27;;  &#x2F;&#x2F;假设使用var定义  则会输出yu（因为被let声明的对象是不会作为全局对象的属性）      function loadname()&amp;#123;        console.log(this.name);      &amp;#125;      loadn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Corookie&#39;s Blog">
+<meta property="og:url" content="https://github.com/corookie/2022/11/23/js%E7%96%91%E6%83%91/index.html">
+<meta property="og:site_name" content="Corookie&#39;s Blog">
+<meta property="og:description" content="前端笔记总结JS方面1. this 的指向 this默认值为window  12345let name &#x3D; &amp;#x27;yu&amp;#x27;;  &#x2F;&#x2F;假设使用var定义  则会输出yu（因为被let声明的对象是不会作为全局对象的属性）      function loadname()&amp;#123;        console.log(this.name);      &amp;#125;      loadn">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/corookie/img/zhuye.jpg">
+<meta property="article:published_time" content="2022-11-23T08:50:19.309Z">
+<meta property="article:modified_time" content="2022-11-23T08:55:19.263Z">
+<meta property="article:author" content="Corookie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/corookie/img/zhuye.jpg"><link rel="shortcut icon" href="/corookie/img/icon.jpg"><link rel="canonical" href="https://github.com/corookie/2022/11/23/js%E7%96%91%E6%83%91/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/corookie/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/corookie/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Corookie\'s Blog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-11-23 16:55:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/Lsr6QkCz/20221123160820.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/corookie/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/corookie/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/corookie/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/corookie/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/corookie/img/zhuye.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/corookie/">Corookie's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/corookie/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/corookie/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-23T08:50:19.309Z" title="发表于 2022-11-23 16:50:19">2022-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-23T08:55:19.263Z" title="更新于 2022-11-23 16:55:19">2022-11-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前端笔记总结"><a href="#前端笔记总结" class="headerlink" title="前端笔记总结"></a>前端笔记总结</h1><h2 id="JS方面"><a href="#JS方面" class="headerlink" title="JS方面"></a>JS方面</h2><h4 id="1-this-的指向"><a href="#1-this-的指向" class="headerlink" title="1. this 的指向"></a>1. this 的指向</h4><ul>
+<li>this默认值为window</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;yu&#x27;</span>;  <span class="comment">//假设使用var定义  则会输出yu（因为被let声明的对象是不会作为全局对象的属性）</span></span><br><span class="line">      <span class="keyword">function</span> <span class="title function_">loadname</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">loadname</span>()  <span class="comment">//windows</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在函数内默认也是windows</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn</span>(); <span class="comment">// window</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">fn</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>但是，当函数被作为对象的方法时，this指向该对象。但是，当被嵌套函数调用时，this指向windows</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;yus&#x27;</span>,</span><br><span class="line">        <span class="attr">readname</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>) <span class="comment">//yus</span></span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="attr">readme</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            (<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">               <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>)<span class="comment">//windows </span></span><br><span class="line">            &#125;())</span><br><span class="line">        &#125; <span class="comment">//嵌套</span></span><br><span class="line">      &#125;;</span><br><span class="line">      obj.<span class="title function_">readname</span>()</span><br></pre></td></tr></table></figure></li>
+<li><p>闭包中默认指向windows</p>
+</li>
+<li><p>当函数作为对象的方法时调用丢失了自己绑定的对象，又会默认指向windows</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&#x27;yus&#x27;</span>,</span><br><span class="line">        <span class="attr">readname</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>) <span class="comment">//yus</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#125; <span class="comment">//嵌套</span></span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">let</span> n = obj.<span class="property">readname</span>;</span><br><span class="line">		<span class="title function_">n</span>();<span class="comment">//windows</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>当使用new 关键字的时候，内部的this 指向该实例。</strong></p>
+</li>
+</ul>
+<h4 id="2-闭包"><a href="#2-闭包" class="headerlink" title="2.闭包"></a>2.闭包</h4><p>什么是闭包：一个紧凑的只有一个方法的对象。</p>
+<p>闭包可以理解为一个函数，但是有记忆功能，能够记住变量的变化。举个例子:joy:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">     <span class="comment">//这是用函数实现的</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">value</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="keyword">let</span> num = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">return</span> ++num</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">value</span>()); <span class="comment">//1</span></span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">value</span>()); <span class="comment">//1</span></span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">value</span>()); <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是用闭包实现的     </span></span><br><span class="line">   <span class="keyword">let</span> value =  (<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">     <span class="keyword">let</span> num = <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="keyword">return</span> ++num;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;());</span><br><span class="line">   <span class="title function_">value</span>()<span class="comment">//1</span></span><br><span class="line">   <span class="title function_">value</span>()<span class="comment">//2</span></span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">value</span>()); <span class="comment">//3</span></span><br><span class="line">   <span class="comment">// 有个问题，为什么要iife立即执行，再返回常规函数 ， 而调换下则无法记住num？</span></span><br><span class="line">   <span class="comment">// 猜测是因为num的原因，需要先声明num，再执行闭包</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是用对象实现的 </span></span><br><span class="line">     <span class="keyword">let</span> obj = &#123;</span><br><span class="line">       num : <span class="number">0</span>,</span><br><span class="line">       inc : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">num</span> ++</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     obj.<span class="title function_">inc</span>()<span class="comment">//0</span></span><br><span class="line">     obj.<span class="title function_">inc</span>()<span class="comment">//1</span></span><br><span class="line">     obj.<span class="title function_">inc</span>()<span class="comment">//2</span></span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="title function_">inc</span>());<span class="comment">//3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​    由此可见，闭包的作用和对象差不多，其实主要区别就一个：这里用的是普通对象 obj 的方法（函数）inc，让 num作为 obj 的成员变量来保存数据。而前面第一个例子直接用闭包函数 inc 的话，连 obj 这个对象也可以省掉，让 count 直接成为 inc 闭包内部所保存的状态（环境）变量，这样写起来就比传统的 OOP 更为紧凑，前者用 inc()，而后者用 obj.inc()，尽管两者最终实现的功能和效果基本是一致的。</p>
+<p>​    2022 11 14 : 闭包可以保护里面的变量不被访问 ，返回的只是那个变量经过处理后的值，有点像拷贝那种感觉</p>
+<h4 id="3-异步-promise-angry"><a href="#3-异步-promise-angry" class="headerlink" title="3.异步(promise):angry:"></a>3.异步(promise):angry:</h4><ul>
+<li>什么是异步</li>
+</ul>
+<p>我们都知道js是单线程的，但再实际生活中，肯定不能因为一个任务就不执行后续任务，因此在实际中js是异步执行的。那这样的话问题来了，假设遇到这种情况怎么办？(简单来说，异步就是先执行，再调用)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">c</span>(<span class="params"></span>)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;star&#x27;</span>);&#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">function</span> <span class="title function_">d</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        c = <span class="number">1</span>        </span><br><span class="line">      &#125;, <span class="number">2000</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">print</span>(<span class="params">x</span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> c = <span class="number">0</span>;</span><br><span class="line">    <span class="title function_">d</span>(); <span class="comment">// 给c 赋值 1</span></span><br><span class="line">    <span class="title function_">print</span>(c)  <span class="comment">//但结果会是0，因为异步的原因 先执行print 再执行d，导致c没赋值为1</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是异步编程的不方便之处，我们希望sentimeout执行完再执行，end，那么怎么解决呢？</p>
+<p>老方法使用的回调函数，因为函数是一等公民，所以可以作为参数使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">c</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;star&#x27;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">function</span> <span class="title function_">d</span>(<span class="params">callback</span>)&#123;</span><br><span class="line">         <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">           c = <span class="number">1</span>  </span><br><span class="line">           <span class="title function_">callback</span>(c)   <span class="comment">//给d赋予callback，在赋值完c后调用callback 打印c     </span></span><br><span class="line">         &#125;, <span class="number">2000</span>);    </span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">function</span> <span class="title function_">print</span>(<span class="params">x</span>)&#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(x);</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">var</span> c = <span class="number">0</span>;</span><br><span class="line">       <span class="title function_">d</span>(print);</span><br></pre></td></tr></table></figure>
+
+<p>回调函数同样存在问题，假设callback还需要调用另一个函数，这就会导致回调地狱的产生。无限嵌套。因此新时代的前端人使用promise 代替回调函数:smiley_cat:，下面且听我细细道来。</p>
+<ul>
+<li>promise :upside_down_face:</li>
+</ul>
+<p>期约是个对象，代表异步操作的返回值或者结果值。有三种状态，待定，解决或者拒绝，只有解决了才会运行then，调用回调函数。</p>
+<p>有几个名词，期约解决: 当把回调c传递给then(),方法时，会返回一个期约p。当c的结果是个值，p 就会得到解决并以该值兑现，当c的结果是个期约V的话，这时候我们会说，我们说p会得到解决，但并没有兑现，想兑现则需要V落定后才能兑现，()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">c1</span>(<span class="params">response</span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> p4 = response.<span class="title function_">json</span>()</span><br><span class="line">  <span class="keyword">return</span> p4</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">c2</span>(<span class="params">profile</span>)&#123;</span><br><span class="line">  <span class="title function_">displayusersprofile</span>(profile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="title function_">fetch</span>(<span class="string">&quot;/api/user/profile&quot;</span>);    <span class="comment">//发送http请求，返回P1</span></span><br><span class="line"><span class="keyword">let</span> p2 = p1.<span class="title function_">then</span>(c1);        <span class="comment">//  p1的then对象，调用c1，当c1落地时，p2才兑现</span></span><br><span class="line"><span class="keyword">let</span> p3 = p2.<span class="title function_">then</span>(c2)        <span class="comment">// 当c2落地时，p3才兑现</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>catch 和finally</li>
+</ul>
+<p>catch一般放在末尾,用于处理各类错误，instanceof 或者 typeError。</p>
+<p>finally 的回调会在期约落地后被调用，不管期约状态与否，适合完成那种清理代码类的工作</p>
+<ul>
+<li>箭头函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(param1, param2, …, paramN) =&gt; expression</span><br><span class="line"><span class="comment">//相当于：(param1, param2, …, paramN) =&gt;&#123; return expression; &#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>async 和 await</li>
+</ul>
+<p>这两个可以让异步代码看起来像同步代码 十分的简洁。</p>
+<p>await一般用法    let s = await promise() , 只有当await 后面的期约兑现或解决 ,才会执行后面的代码，因此await只允许在async函数内使用。</p>
+<h4 id="4-let和var"><a href="#4-let和var" class="headerlink" title="4.let和var"></a>4.let和var</h4><ul>
+<li> let和var在全局作用域声明时 二者类似</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;yu&#x27;</span></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;yu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>let声明的变量 不能作为全局变量的属性  也就是说windows里没有let声明的变量。</p>
+</li>
+<li><p>在函数作用域中，二者一样，但是在块作用域中，例如for循环中let声明的只在循环中有效，而var则都有效。</p>
+<p>因此，let在块作用域中作用更大</p>
+</li>
+</ul>
+<h4 id="5-箭头函数和普通函数的区别"><a href="#5-箭头函数和普通函数的区别" class="headerlink" title="5.箭头函数和普通函数的区别"></a>5.箭头函数和普通函数的区别</h4><h4 id="6-文档对象模型和浏览器程序的执行"><a href="#6-文档对象模型和浏览器程序的执行" class="headerlink" title="6.文档对象模型和浏览器程序的执行"></a>6.文档对象模型和浏览器程序的执行</h4><p>​    客服端编程中最重要的对象就是Document对象，它代表浏览器窗口和标签页中显示的html文档，dom(document object model)可以操作html文档。 每个浏览器或者标签页都有一个全局对象，全局对象有个属性叫windows 他的值等于全局对象本身。所以可以访问windows来引用全局对象。给全局对象添加属性能够全局引用(var 或者 function声明),es6中的const let class声明不会给全局对象增加属性，但是会被定义在一个共享的命名空间，因此也能够被引用。 然而在模块中，顶级(即位于函数或者类之外的) 的常量或者变量、函数和类都是模块私有的，可以被导出。</p>
+<p><strong>JS程序的执行</strong></p>
+<ul>
+<li>浏览器创建document对象并解析整个html文档 document.readstate =  loading</li>
+<li>当遇见无(async,defer,type = module)的脚本会把标签添加到文档，并执行。此期间html暂停解析</li>
+<li>当遇见async 的脚本时，此时会先下载脚本，会尽快执行。此时html持续解析。3</li>
+<li>文档解析完成后，会 d.readstate =  interactive</li>
+<li>defer 和不带async属性的脚本会按照顺序执行。异步脚本也可能此时执行。</li>
+<li>浏览器在d对象上发放DOMcontentLoaded”事件，程序执行进入到异步事件驱动状态</li>
+<li>此时仍然可能有异步脚本未执行。</li>
+<li>当异步脚本和内容全部加载出来时(例如较大图片)，d.state = load ,浏览器在d对象上派发load事件，从这一刻起，作为对用户输入事件，网络事件，定时器超时等的响应，浏览器开始异步调用事件处理程序。</li>
+</ul>
+<h4 id="7-事件"><a href="#7-事件" class="headerlink" title="7.事件"></a>7.事件</h4><p>事件就是浏览器会在文档、浏览器或者某些元素或与之关联的对象发生某些值得关注的事时生成事件。 例如 浏览器加载完文档，用户点击某个超链接，也会在用户敲击键盘时生成事件。</p>
+<p>事件类型有很多，表示发生事件的类型，例如 mousemove,表示鼠标发生移动。</p>
+<p>事件目标是个对象，表示事件发生在该对象上或者于该对象有关，常用的对象有 element  windows document。</p>
+<p>事件处理程序和事件监听器 是个函数，负责处理响应事件，常用 addeventlistener。</p>
+<p>事件对象 是与特定事件关联的对象，包含有关该事件的细节，并作为事件处理程序的参数传入。所有事件对象都包括两个参数 type和 target ,前者代表 事件类型 后者代表事件目标。</p>
+<h2 id="CSS方面"><a href="#CSS方面" class="headerlink" title="CSS方面"></a>CSS方面</h2><h4 id="1-垂直居中问题"><a href="#1-垂直居中问题" class="headerlink" title="1.垂直居中问题"></a>1.垂直居中问题</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text-align center</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTML方面"><a href="#HTML方面" class="headerlink" title="HTML方面"></a>HTML方面</h2><h4 id="1-html常识"><a href="#1-html常识" class="headerlink" title="1.html常识"></a>1.html常识</h4><p>html全称超文本标记语言，即可以把音乐，链接，图片包含在页面中。</p>
+<p>js通过script元素插入到html页面中，通常script标签写在主内容之后和</body>的前面。不写在head内？</p>
+<p>通常script会挨个解释，但defer和async标签可以改变脚本执行顺序。   二者作用？</p>
+<p>古老的浏览器可以使用<noscript>标签显示读取失败的信息。</p>
+<h2 id="vue-方面"><a href="#vue-方面" class="headerlink" title="vue 方面"></a>vue 方面</h2><h4 id="1、自定义组件事件（用于子组件传递信息给父组件）"><a href="#1、自定义组件事件（用于子组件传递信息给父组件）" class="headerlink" title="1、自定义组件事件（用于子组件传递信息给父组件）"></a>1、自定义组件事件（用于子组件传递信息给父组件）</h4><ul>
+<li>所有组件标签里的事件默认为自定义事件  想使用原生事件需要加上.native  </li>
+<li>调用需要在子组件里使用 $emit 添加自定义组件的响应 同时传递信息。</li>
+<li>也可以使用ref传递    在父组件中使用 $ref.xxx.$on( ‘自定义事件名字’ ，回调函数 )</li>
+</ul>
+<h4 id="2、vue中动画效果"><a href="#2、vue中动画效果" class="headerlink" title="2、vue中动画效果"></a>2、vue中动画效果</h4><ul>
+<li>动画效果使用关键字**@keyframe** 定义  里面一般有 from 和 to 对动画进行简单设置</li>
+</ul>
+<h4 id="3、插槽"><a href="#3、插槽" class="headerlink" title="3、插槽"></a>3、插槽</h4><p>​    可以在app里面把子组件的使用标签写成完整形式，然后可以往里添加各种html标签，只需要子组件使用<slot>进行占位即可使用。可以给每个插槽取名字。</p>
+<p>​    作用域插槽作用很大，可以通过他给父组件传递信息，使用方法为：给子组件的<slot :games = games> 传递信息，然后父组件找到插槽信息，使用<template slot-scope = 'listmsg' >   进行包裹然后 给信息取个名字,后 即可这样使用子组件传递的信息。</p>
+<h2 id="ajax方面"><a href="#ajax方面" class="headerlink" title="ajax方面"></a>ajax方面</h2><p>使用户不用刷新即可获取服务端信息，很好用很常用</p>
+<h2 id="项目总结"><a href="#项目总结" class="headerlink" title="项目总结"></a>项目总结</h2><h4 id="1、todo-list"><a href="#1、todo-list" class="headerlink" title="1、todo list"></a>1、todo list</h4><p>​    完成一个简单的便签任务，能够添加、删除和统计代办事件。 难点在于：</p>
+<ul>
+<li>实现组件间的互相通信，app 和 其他子组件传递信息。</li>
+<li>如何实现子组件传递数据给父组件，在删除功能中，需要将删除的id传递给app组件。(从父组件传递功能过去，然后子组件使用功能返回需要的信息)</li>
+<li>props filter foreach  等函数的熟练 2、</li>
+</ul>
+<h4 id="2、后台管理系统"><a href="#2、后台管理系统" class="headerlink" title="2、后台管理系统"></a>2、后台管理系统</h4><p>​    实现一个后台管理系统，左侧为导航栏，右侧分为header 和 main两个部分，其中header显示面包屑和折叠按钮，点击即可使导航栏进入折叠状态；main部分为显示区，实现两个页面(pages)的切换;项目核心要点有:</p>
+<ul>
+<li>使用less去写样式，能够使得结构更分明，代码更易懂。对flex的一些布局要熟练(justify-content(对齐方式 均匀分布还是左=&gt;右 )   flex-direction(设置 x y 还是左右排列))</li>
+<li>echarts 的使用 折线图 柱状图 和pie图  栅格布局方式</li>
+<li>表单相关的操作，怎么获取、显示数据、分页的用法。</li>
+<li>使用vuex对数据进行管理，方便组件使用或者改变(注意mapstate等相关map的用法)</li>
+<li>路由技术：怎么不通过刷新页面实现路由的跳转，   ？？？ 传参问题还要多了解   query 传参  params 传参   push跳转路由传参</li>
+<li>axios实现请求的发送</li>
+<li>后端使用mock模拟拦截请求并返回数据？ 不是很熟练</li>
+</ul>
+<p>待解决的点</p>
+<ol>
+<li>tag删除功能还没做</li>
+<li>折叠时候字体过度不够自然</li>
+<li>路由拦截 账号登录注销功能</li>
+</ol>
+<h4 id="3、个人博客"><a href="#3、个人博客" class="headerlink" title="3、个人博客"></a>3、个人博客</h4><ul>
+<li>如何自然的实现页面内跳转，而不是使用window.location.hash这种傻快的方法。</li>
+<li>动画的实现，之前没写过动画相关的东西，怎么实现下弹按钮的dance动画效果</li>
+<li>怎么让一张图片作为三个盒子  nav  header(div div)的背景图片</li>
+</ul>
+<h3 id="header部分"><a href="#header部分" class="headerlink" title="header部分"></a><strong>header部分</strong></h3><p>​    结构为一个大的div  header ，设置一张背景图片；然后最上面有导航栏nav，中间有字，最下面有一个带动画的按钮；要求nav中间的字和最下方的按钮都在图片上显示。</p>
+<p>​    使用z-index突出图层，然后使用position absolute 定位盒子即可，还有就是页面内跳转需要一个动画。</p>
+<p><img src="C:\Users\m1894\Desktop\项目进展\第一天.png"></p>
+<p>​    第一天，完成了nav部分，这部分应当作为一个单独的组件来搭建，无论进入到那个页面，nav都应该存在于页面顶部；下面的blog主页部分完成了图片和按钮的加入，后续还需在图片上加几行字。还需要完成的工作有：给按钮价加个dance效果，然后点击按钮时，会滑动滚动条进入到下个页面。</p>
+<ul>
+<li>nav应该时一直悬浮在页面最上面，而不是写死的，这个问题需要解决。 </li>
+<li>dance动画为啥只在渲染的时候出现一次。</li>
+</ul>
+<p><img src="C:\Users\m1894\Desktop\项目进展\第二天.png"></p>
+<p>第二天，完成了按钮动画部分，使用css完成即可，无需使用vue的transition，完成了导航栏的悬浮，完成了git的配置 后续下载typed.js制作一个打字机动画即可，完成了个人信息的展示，还有blogmain背景图片的添加(添加背景图片给bg-size设置一个100vw vh即可)，</p>
+<ul>
+<li>导航栏应该有动画，往下滑时消失，往上滑出现；特别注意背景颜色，应该要变化</li>
+<li>按钮的功能需要实现，点击跳转。</li>
+<li>typed.js打字机特效 </li>
+</ul>
+<p><img src="C:\Users\m1894\Desktop\项目进展\第三天.png"></p>
+<p>​    第三天主要完善了一下typed打字机特效，完善了点击跳转的动画，主要使用的是vuex添加一个变量，然后使用watch进行监控即可，同时添加了一下动态的标签。注意以后怎么让盒子水平居中 设置margin：0 auto即可</p>
+<ul>
+<li>完善鼠标向下可以隐藏导航栏，然后鼠标向上会显示导航栏，然后到最顶上的时候透明度为0；</li>
+<li>渲染一个简单的文章显示，包含标题和内容和封面 文章用一个路由页面显示  根据不同内容进行渲染</li>
+<li>添加文章 后台管理等内容可以后面在做</li>
+</ul>
+<p><img src="C:\Users\m1894\Desktop\项目进展\第四天.png"></p>
+<p>第四天 大摸鱼，只完成了文章的渲染，数据使用vuex进行管理，有 title content updatetine view tags folder 六部分内容，但都是写死的，后台管理系统后面在做。</p>
+<ul>
+<li>导航栏动画效果</li>
+<li>点击文章标题跳转到那篇文章的route</li>
+<li>最近文章做成list的形状把 不加封面，暂定这样</li>
+<li>找个好看的博客显示背景，底色浅色</li>
+</ul>
+<h2 id="node-js"><a href="#node-js" class="headerlink" title="node.js"></a>node.js</h2><p>​    一种基于v8引擎，能让js在服务端运行的东西，特点：事件驱动(long pulling ，事件loop循环)：收到ajax请求后，不会马上返回，而是该返回的时候返回，同时不返回的时候，进程不会闲着 而是去接其他请求‘</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://github.com/corookie">Corookie</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://github.com/corookie/2022/11/23/js%E7%96%91%E6%83%91/">https://github.com/corookie/2022/11/23/js%E7%96%91%E6%83%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://github.com/corookie" target="_blank">Corookie's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/corookie/img/zhuye.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/corookie/2022/11/23/hello-world/"><img class="next-cover" src="/corookie/" onerror="onerror=null;src='/corookie/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.postimg.cc/Lsr6QkCz/20221123160820.jpg" onerror="this.onerror=null;this.src='/corookie/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Corookie</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/corookie/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/corookie/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/corookie/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="https://github.com/corookie"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text">前端笔记总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JS%E6%96%B9%E9%9D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">JS方面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-this-%E7%9A%84%E6%8C%87%E5%90%91"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1. this 的指向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%97%AD%E5%8C%85"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%BC%82%E6%AD%A5-promise-angry"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3.异步(promise):angry:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-let%E5%92%8Cvar"><span class="toc-number">1.1.0.4.</span> <span class="toc-text">4.let和var</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.0.5.</span> <span class="toc-text">5.箭头函数和普通函数的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%96%87%E6%A1%A3%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="toc-number">1.1.0.6.</span> <span class="toc-text">6.文档对象模型和浏览器程序的执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.1.0.7.</span> <span class="toc-text">7.事件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E6%96%B9%E9%9D%A2"><span class="toc-number">1.2.</span> <span class="toc-text">CSS方面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">1.垂直居中问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML%E6%96%B9%E9%9D%A2"><span class="toc-number">1.3.</span> <span class="toc-text">HTML方面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-html%E5%B8%B8%E8%AF%86"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1.html常识</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-%E6%96%B9%E9%9D%A2"><span class="toc-number">1.4.</span> <span class="toc-text">vue 方面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6%EF%BC%88%E7%94%A8%E4%BA%8E%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E4%BF%A1%E6%81%AF%E7%BB%99%E7%88%B6%E7%BB%84%E4%BB%B6%EF%BC%89"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">1、自定义组件事件（用于子组件传递信息给父组件）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81vue%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">2、vue中动画效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%8F%92%E6%A7%BD"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">3、插槽</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ajax%E6%96%B9%E9%9D%A2"><span class="toc-number">1.5.</span> <span class="toc-text">ajax方面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.</span> <span class="toc-text">项目总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81todo-list"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">1、todo list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.6.0.2.</span> <span class="toc-text">2、后台管理系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.6.0.3.</span> <span class="toc-text">3、个人博客</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#header%E9%83%A8%E5%88%86"><span class="toc-number">1.6.1.</span> <span class="toc-text">header部分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-js"><span class="toc-number">1.7.</span> <span class="toc-text">node.js</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/corookie/2022/11/23/js%E7%96%91%E6%83%91/" title="无题"><img src="/corookie/img/zhuye.jpg" onerror="this.onerror=null;this.src='/corookie/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/corookie/2022/11/23/js%E7%96%91%E6%83%91/" title="无题">无题</a><time datetime="2022-11-23T08:50:19.309Z" title="发表于 2022-11-23 16:50:19">2022-11-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/corookie/2022/11/23/hello-world/" title="Hello World">Hello World</a><time datetime="2022-11-23T07:55:07.029Z" title="发表于 2022-11-23 15:55:07">2022-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Corookie</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/corookie/js/utils.js"></script><script src="/corookie/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
