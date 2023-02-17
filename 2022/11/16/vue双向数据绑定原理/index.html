@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vue双向数据绑定原理 | Corookie's Blog</title><meta name="author" content="Corookie"><meta name="copyright" content="Corookie"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="vue2、vue3双向数据绑定原理​    vue2中使用Object.defineProperty实现数据双向绑定，对对象中每个属性添加getter和setter，监视数据，并且结合发布订阅模式，只要数据发生变化直接通知变化 并驱动视图更新。 1234&lt;body&gt;    &lt;input id&#x3D;&quot;input&quot; type&#x3D;&quot;text&quot; &#x2F;&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue双向数据绑定原理">
+<meta property="og:url" content="https://corookie.github.io/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Corookie&#39;s Blog">
+<meta property="og:description" content="vue2、vue3双向数据绑定原理​    vue2中使用Object.defineProperty实现数据双向绑定，对对象中每个属性添加getter和setter，监视数据，并且结合发布订阅模式，只要数据发生变化直接通知变化 并驱动视图更新。 1234&lt;body&gt;    &lt;input id&#x3D;&quot;input&quot; type&#x3D;&quot;text&quot; &#x2F;&amp;gt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-11-16T01:58:33.000Z">
+<meta property="article:modified_time" content="2023-02-17T08:21:48.872Z">
+<meta property="article:author" content="Corookie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/icon.jpg"><link rel="canonical" href="https://corookie.github.io/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vue双向数据绑定原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-17 16:21:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/icon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Corookie's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vue双向数据绑定原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-11-16T01:58:33.000Z" title="发表于 2022-11-16 09:58:33">2022-11-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-17T08:21:48.872Z" title="更新于 2023-02-17 16:21:48">2023-02-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vue双向数据绑定原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="vue2、vue3双向数据绑定原理"><a href="#vue2、vue3双向数据绑定原理" class="headerlink" title="vue2、vue3双向数据绑定原理"></a>vue2、vue3双向数据绑定原理</h2><p>​    vue2中使用<code>Object.defineProperty</code>实现数据双向绑定，对对象中每个属性添加getter和setter，监视数据，并且结合发布订阅模式，只要数据发生变化直接通知变化 并驱动视图更新。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//手写数据代理 object.defineproperty</span></span><br><span class="line"><span class="comment">//数据代理 把data1中的属性变成getter setter代理到data2</span></span><br><span class="line"><span class="keyword">const</span> data1=&#123;<span class="attr">name</span>:<span class="string">&#x27;peak&#x27;</span>,<span class="attr">age</span>:<span class="number">10</span>&#125;;</span><br><span class="line">      data2 = &#123;name :<span class="string">&#x27;peak&#x27;</span>,<span class="attr">age</span>:<span class="number">10</span>&#125;；</span><br><span class="line"><span class="comment">// 遍历对象 实现对对象的属性进行劫持 给data2绑定上set get 读取data1中的值</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(data2).<span class="title function_">forEach</span>(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(data2,key,&#123;</span><br><span class="line">        <span class="comment">//添加set get</span></span><br><span class="line">        <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="comment">// console.log(&#x27;get触发了，值为&#x27;,data.key);</span></span><br><span class="line">            <span class="keyword">return</span> data1[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">set</span>(<span class="params">value</span>)&#123;</span><br><span class="line">            data[key] = value</span><br><span class="line">            <span class="comment">// console.log(&#x27;set触发了,更新后的值为&#x27;,value);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p> vue2有两个小问题：</p>
+<ul>
+<li>无法检测对象中新增或者删除的属性。  解决方法this.$set  this.$delete</li>
+<li>为了检测数组vue2重写了数组的几个方法，只有数组使用那些方法时，vue2才能检测到变化。array.length发生变化时，vue2无法检测；通过数组下标改变数组时，vue2无法监测到数组变化。</li>
+</ul>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>vue3中双向数据绑定借助了es6 的proxy实现数据代理和监测</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="title class_">Proxy</span>(target, handler)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, &#123;</span><br><span class="line">    <span class="attr">get</span>: <span class="keyword">function</span>(<span class="params">target, prop, receiver</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> prop <span class="keyword">in</span> target ? target[prop] : <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="keyword">function</span>(<span class="params">target, prop, value, receiver</span>) &#123;</span><br><span class="line">        target[prop] = <span class="number">666</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">a</span>) <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">c</span>) <span class="comment">// 0</span></span><br><span class="line">proxy.<span class="property">a</span> = <span class="number">10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">a</span>) <span class="comment">// 666</span></span><br><span class="line">obj.<span class="property">b</span> = <span class="number">10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(proxy.<span class="property">b</span>) <span class="comment">// 不是666 而是10 </span></span><br></pre></td></tr></table></figure>
+
+<p>以上代码中obj是我们要代理的目标对象，get，set方法是参数handler的两个属性，具体如下：</p>
+<p>handler.get()接收三个参数，第一个参数target为代理的目标对象，第二个参数prop是代理的目标对象的属性，第三个参数是Proxy或者继承Proxy的对象，通常是proxy本身。</p>
+<p>handler.set()接收四个参数，其中三个参数都与get方法相同，唯独多出来一个value表示新的属性值。</p>
+<p>上述代码表示当访问proxy的属性时，进行拦截判断，该属性是否是目标对象的属性，如果是那么就将其值返回出来，否则就返回0。</p>
+<p>当对proxy上的属性进行重写时，将重写的该属性赋值为666。</p>
+<p>注意： 此时对数据的劫持，只是劫持了代理对象proxy，而跟原对象obj没有任何关系，对obj进行操作，也不会监听到。</p>
+<p>下面是双向绑定的proxy实现</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;input&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;app&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> input = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="comment">// 源数据</span></span><br><span class="line">  <span class="attr">text</span>:<span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> proxy = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="attr">set</span>: <span class="keyword">function</span>(<span class="params">target, prop, value</span>)&#123; <span class="comment">// input事件触发进行劫持，触发update方法</span></span><br><span class="line">    target[prop] = value</span><br><span class="line">    <span class="title function_">update</span>(value)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">update</span>(<span class="params">value</span>)&#123; <span class="comment">// update方法用于同步dom更新</span></span><br><span class="line">    app.<span class="property">innerHTML</span> = value</span><br><span class="line">    input.<span class="property">value</span> = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">input.<span class="title function_">addEventListener</span>(<span class="string">&#x27;input&#x27;</span>,<span class="keyword">function</span>(<span class="params">e</span>)&#123; <span class="comment">// 监听input数据变化，并修改proxy的值</span></span><br><span class="line">  proxy.<span class="property">text</span> = e.<span class="property">target</span>.<span class="property">value</span></span><br><span class="line">&#125;)</span><br><span class="line">proxy.<span class="property">text</span> = obj.<span class="property">text</span> <span class="comment">// 初始化源数据</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43638968/article/details/118329835">(60条消息) vue2与vue3双向数据绑定的区别_star@星空的博客-CSDN博客</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://corookie.github.io">Corookie</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://corookie.github.io/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/">https://corookie.github.io/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://corookie.github.io" target="_blank">Corookie's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/02/07/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">前端常见问题</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/icon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Corookie</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/corookie"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">热烈、坦诚、自由</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue2%E3%80%81vue3%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">vue2、vue3双向数据绑定原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.0.1.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/02/16/flex%E5%B8%83%E5%B1%80/" title="flex布局"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="flex布局"/></a><div class="content"><a class="title" href="/2023/02/16/flex%E5%B8%83%E5%B1%80/" title="flex布局">flex布局</a><time datetime="2023-02-16T08:41:33.000Z" title="发表于 2023-02-16 16:41:33">2023-02-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/15/50days%2050project/" title="50days 50project"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="50days 50project"/></a><div class="content"><a class="title" href="/2023/02/15/50days%2050project/" title="50days 50project">50days 50project</a><time datetime="2023-02-15T07:23:28.000Z" title="发表于 2023-02-15 15:23:28">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/07/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="前端常见问题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端常见问题"/></a><div class="content"><a class="title" href="/2023/02/07/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="前端常见问题">前端常见问题</a><time datetime="2023-02-07T07:45:23.000Z" title="发表于 2023-02-07 15:45:23">2023-02-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/" title="vue双向数据绑定原理"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue双向数据绑定原理"/></a><div class="content"><a class="title" href="/2022/11/16/vue%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86/" title="vue双向数据绑定原理">vue双向数据绑定原理</a><time datetime="2022-11-16T01:58:33.000Z" title="发表于 2022-11-16 09:58:33">2022-11-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Corookie</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
