@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>资源加载 | Corookie's Blog</title><meta name="author" content="Corookie"><meta name="copyright" content="Corookie"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="图片资源加载 ​    在实际开发过程中，发现有时候图片路径会出问题，打包后的图片路径错误，导致图片无法正常加载，因此学习了解了一下vue中静态资源加载的一些方式。 ​    静态资源在项目中一般放置在两个地方，asset文件夹和public文件夹，对于public文件夹中的资源，使用绝对路径即可，asset文件夹则经常用相对路径进行访问。  相对路径  ​    相对路径是以’.&#x2F;‘ or ‘.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="资源加载">
+<meta property="og:url" content="https://corookie.github.io/2023/06/28/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/index.html">
+<meta property="og:site_name" content="Corookie&#39;s Blog">
+<meta property="og:description" content="图片资源加载 ​    在实际开发过程中，发现有时候图片路径会出问题，打包后的图片路径错误，导致图片无法正常加载，因此学习了解了一下vue中静态资源加载的一些方式。 ​    静态资源在项目中一般放置在两个地方，asset文件夹和public文件夹，对于public文件夹中的资源，使用绝对路径即可，asset文件夹则经常用相对路径进行访问。  相对路径  ​    相对路径是以’.&#x2F;‘ or ‘.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-06-28T01:42:17.000Z">
+<meta property="article:modified_time" content="2023-08-28T03:08:55.667Z">
+<meta property="article:author" content="Corookie">
+<meta property="article:tag" content="资源加载">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/icon.jpg"><link rel="canonical" href="https://corookie.github.io/2023/06/28/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '资源加载',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-08-28 11:08:55'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/icon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Corookie's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">资源加载</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-28T01:42:17.000Z" title="发表于 2023-06-28 09:42:17">2023-06-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-28T03:08:55.667Z" title="更新于 2023-08-28 11:08:55">2023-08-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9E%E4%B9%A0%E7%9B%B8%E5%85%B3/">实习相关</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9E%E4%B9%A0%E7%9B%B8%E5%85%B3/vue/">vue</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="资源加载"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>图片资源加载</strong></p>
+<p>​    在实际开发过程中，发现有时候图片路径会出问题，打包后的图片路径错误，导致图片无法正常加载，因此学习了解了一下vue中静态资源加载的一些方式。</p>
+<p>​    静态资源在项目中一般放置在两个地方，asset文件夹和public文件夹，对于public文件夹中的资源，使用绝对路径即可，asset文件夹则经常用相对路径进行访问。</p>
+<ul>
+<li>相对路径</li>
+</ul>
+<p>​    相对路径是以’./‘ or ‘../‘开头的文件路径，相对路径是相对于本文件的路径，以本文件为基点，对于静态的图片路径，打包工具打包后会自动解析路径，转换成资源储存在服务器的路径。同时@webpack中默认为src文件夹，在vite中需要进行配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;resolve&#125;<span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">resolvePath</span> = (<span class="params">dir</span>) =&gt; resolve&#123;dir_name,dir&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">      <span class="string">&quot;@&quot;</span>: <span class="title function_">pathResolve</span>(<span class="string">&quot;./src&quot;</span>), <span class="comment">// 新增</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绝对路径</li>
+</ul>
+<p>​    绝对路径的通常以‘/’或者省略‘/’开头，可以直接访问public文件夹中的静态资源，但放在public中的文件，打包后会生成一些额外的js。</p>
+<p>​    !!!public中的资源不应该被js引用</p>
+<ul>
+<li>图片解析规则</li>
+</ul>
+<p>​    对于相对路径来说，必须以.开头，无论是url里的路径或者是src中的静态路径，都会被当成一个<strong>模块依赖</strong>解析，例如url(‘./assets/1.png’)会作为’./assets/1.png’</p>
+<ul>
+<li>一些问题</li>
+</ul>
+<ol>
+<li>当图片使用动态src或者动态backgroundImg的时候，使用相对路径如下，打包工具不会解析该资源。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;showImg&quot;</span> </span></span><br><span class="line"><span class="tag">   <span class="attr">:style</span>=<span class="string">&quot;&#123;backgroundImage: `url(../assets//小助手幸运.jpg)`&#125;&quot;</span></span></span><br><span class="line"><span class="tag">   &gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>解决方法主要有两个</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、使用import引入图片后加载</span></span><br><span class="line"><span class="keyword">import</span> img <span class="keyword">from</span> ‘../assets<span class="comment">//小助手幸运.jpg’</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2、使用url＋import.meta</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Url</span>(<span class="string">&#x27;../assets//小助手幸运.jpg&#x27;</span>,<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>)</span><br></pre></td></tr></table></figure>
+
+<p>​    2.静态资源放在public中的缺点</p>
+<ul>
+<li>资源优化：public中的资源不参与构建过程，因此缺少文件指纹，资源压缩等打包工具的优化</li>
+<li>缓存问题：如果你在 <code>public</code> 文件夹中修改了资源，由于这些资源不会经过构建过程，所以即使它们的内容发生变化，它们的文件名可能仍然相同。浏览器可能会继续缓存旧的资源版本。你可能需要采取措施来处理缓存问题，如在文件名中添加哈希值或者使用查询参数。</li>
+</ul>
+<p>​    3.vite对图片的优化</p>
+<ol>
+<li><strong>图片压缩：</strong> Vite 可能会自动对图片进行压缩，以减小文件大小，从而减少加载时间。这可以通过减少图像的质量和颜色深度来实现。</li>
+<li><strong>WebP 转换：</strong> 如果浏览器支持，Vite 可能会将图片转换为 WebP 格式，这是一种更高效的图像格式，可以显著减小文件大小。</li>
+<li><strong>雪碧图（Sprites）优化：</strong> Vite 可能会自动将多个小图标合并为一个雪碧图（sprites），从而减少请求次数，提高页面加载性能。</li>
+<li><strong>懒加载和预加载：</strong> 对于较大的图片，Vite 可能会自动实现懒加载（Lazy Loading）或预加载（Preloading）策略，以在需要时进行加载，提高用户体验。</li>
+<li><strong>自动选择格式：</strong> Vite 可能会根据浏览器的支持情况，自动选择最佳的图片格式，例如 JPEG、PNG、WebP 等。</li>
+<li><strong>文件指纹：</strong> 尽管 Vite 不像传统的打包工具那样为资源生成文件指纹，但它会使用查询参数或文件名的方式添加哈希，以确保浏览器在资源内容变化时能够获取新的版本。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://corookie.github.io">Corookie</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://corookie.github.io/2023/06/28/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/">https://corookie.github.io/2023/06/28/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://corookie.github.io" target="_blank">Corookie's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/">资源加载</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/07/07/%E5%8A%A0%E8%BD%BDgltf%E6%A8%A1%E5%9E%8B/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">加载gltf模型</div></div></a></div><div class="next-post pull-right"><a href="/2023/05/05/%E5%AE%9E%E4%B9%A0%E5%89%8D%E4%B8%80%E5%91%A8%E6%94%B6%E8%8E%B7/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">实习收获</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/icon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Corookie</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/corookie"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">热烈、坦诚、自由</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/07/%E5%8A%A0%E8%BD%BDgltf%E6%A8%A1%E5%9E%8B/" title="加载gltf模型">加载gltf模型</a><time datetime="2023-07-07T06:17:50.000Z" title="发表于 2023-07-07 14:17:50">2023-07-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/28/%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD/" title="资源加载">资源加载</a><time datetime="2023-06-28T01:42:17.000Z" title="发表于 2023-06-28 09:42:17">2023-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/05/%E5%AE%9E%E4%B9%A0%E5%89%8D%E4%B8%80%E5%91%A8%E6%94%B6%E8%8E%B7/" title="实习收获">实习收获</a><time datetime="2023-05-05T06:01:12.000Z" title="发表于 2023-05-05 14:01:12">2023-05-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/10/%E8%B5%9B%E5%8D%9A%E5%8D%9C%E5%8D%A6%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91/" title="赛博卜卦项目开发">赛博卜卦项目开发</a><time datetime="2023-04-10T07:16:26.000Z" title="发表于 2023-04-10 15:16:26">2023-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/04/01/http%E8%AF%B7%E6%B1%82/" title="http请求">http请求</a><time datetime="2023-04-01T02:01:59.000Z" title="发表于 2023-04-01 10:01:59">2023-04-01</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Corookie</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
